@@ -24,6 +24,8 @@ public class Kanban {
     private String status;
     private String prioridade;
 
+    public Kanban(){}
+
     public Kanban(Long id, String titulo, String descricao, LocalDateTime dataCriacao, String status, String prioridade) {
         this.id = id;
         this.titulo = titulo;
