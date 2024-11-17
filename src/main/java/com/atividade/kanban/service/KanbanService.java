@@ -1,11 +1,15 @@
 package com.atividade.kanban.service;
 
 import com.atividade.kanban.entities.Kanban;
+import com.atividade.kanban.entities.Status;
 import com.atividade.kanban.repositories.KanbanRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.reactive.context.StandardReactiveWebEnvironment;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class KanbanService {
@@ -14,7 +18,14 @@ public class KanbanService {
     private KanbanRepositories kanbanRepositories;
 
     public List<Kanban> buscarTodos(){
-        return kanbanRepositories.findAll();
+        List<Kanban> result = new ArrayList<>();
+        List<Kanban> a_fazer =  kanbanRepositories.findByStatus(Status.A_FAZER);
+        List<Kanban> fazendo =  kanbanRepositories.findByStatus(Status.FAZENDO);
+        List<Kanban> consluido =  kanbanRepositories.findByStatus(Status.CONCLUIDO);
+        a_fazer.forEach(tarefa -> result.add(tarefa));
+        fazendo.forEach(tarefa -> result.add(tarefa));
+        consluido.forEach(tarefa -> result.add(tarefa));
+        return result;
     }
 
     public Kanban buscarPorId(Long id){
@@ -27,5 +38,54 @@ public class KanbanService {
 
     public void deletar(Long id){
         kanbanRepositories.deleteById(id);
+    }
+
+    public List<Kanban> buscarAFazer(){
+        return kanbanRepositories.findByStatus(Status.A_FAZER);
+    }
+
+    public List<Kanban> buscarFazendo(){
+        return kanbanRepositories.findByStatus(Status.FAZENDO);
+    }
+
+    public List<Kanban> buscarConcluido(){
+        return kanbanRepositories.findByStatus(Status.CONCLUIDO);
+    }
+
+    public Optional<Kanban> atualizarStatus(Long id){
+        Optional<Kanban> kanban = kanbanRepositories.findById(id);
+        if(kanban.isPresent()){
+            Kanban tarefa = kanban.get();
+            Status statusAtual = tarefa.getStatus();
+
+            if (statusAtual == Status.A_FAZER) {
+                tarefa.setStatus(Status.FAZENDO);
+            } else if (statusAtual == Status.FAZENDO) {
+                tarefa.setStatus(Status.CONCLUIDO);
+            }
+
+            return Optional.of(kanbanRepositories.save(tarefa));
+        }
+        return Optional.empty();
+    }
+
+    public Optional<Kanban> atualizarKanban(Long id, Kanban kanbanAtualizado) {
+        Optional<Kanban> kanban = kanbanRepositories.findById(id);
+        if (kanban.isPresent()) {
+            Kanban tarefa = kanban.get();
+
+            if (kanbanAtualizado.getTitulo() != null) {
+                tarefa.setTitulo(kanbanAtualizado.getTitulo());
+            }
+            if (kanbanAtualizado.getDescricao() != null) {
+                tarefa.setDescricao(kanbanAtualizado.getDescricao());
+            }
+            if (kanbanAtualizado.getPrioridade() != null) {
+                tarefa.setPrioridade(kanbanAtualizado.getPrioridade());
+            }
+
+            return Optional.of(kanbanRepositories.save(tarefa));
+        }
+        return Optional.empty();
     }
 }

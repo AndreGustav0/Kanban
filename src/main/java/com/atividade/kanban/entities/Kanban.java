@@ -1,6 +1,7 @@
 package com.atividade.kanban.entities;
 
 import jakarta.persistence.*;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -21,12 +22,14 @@ public class Kanban {
     @Column(nullable = false, updatable = false)
     private LocalDateTime dataCriacao;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.A_FAZER;
+
     private String prioridade;
 
     public Kanban(){}
 
-    public Kanban(Long id, String titulo, String descricao, LocalDateTime dataCriacao, String status, String prioridade) {
+    public Kanban(Long id, String titulo, String descricao, LocalDateTime dataCriacao, Status status, String prioridade) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
@@ -67,11 +70,11 @@ public class Kanban {
         this.dataCriacao = dataCriacao;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
