@@ -1,4 +1,7 @@
 package com.atividade.kanban.repositories;
 
-public interface KanbanRepositories {
+import com.atividade.kanban.entities.Kanban;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface KanbanRepositories extends JpaRepository<Kanban, Long> {
 }
