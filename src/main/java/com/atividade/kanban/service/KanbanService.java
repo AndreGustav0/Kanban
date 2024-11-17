@@ -1,6 +1,7 @@
 package com.atividade.kanban.service;
 
 import com.atividade.kanban.entities.Kanban;
+import com.atividade.kanban.entities.Prioridade;
 import com.atividade.kanban.entities.Status;
 import com.atividade.kanban.repositories.KanbanRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,17 @@ public class KanbanService {
         a_fazer.forEach(tarefa -> result.add(tarefa));
         fazendo.forEach(tarefa -> result.add(tarefa));
         consluido.forEach(tarefa -> result.add(tarefa));
+        return result;
+    }
+
+    public List<Kanban> ordenarPrioridade(){
+        List<Kanban> result = new ArrayList<>();
+        List<Kanban> alta = kanbanRepositories.findByPrioridade(Prioridade.ALTA);
+        List<Kanban> media = kanbanRepositories.findByPrioridade(Prioridade.MEDIA);
+        List<Kanban> baixa = kanbanRepositories.findByPrioridade(Prioridade.BAIXA);
+        alta.forEach(tarefa -> result.add(tarefa));
+        media.forEach(tarefa -> result.add(tarefa));
+        baixa.forEach(tarefa -> result.add(tarefa));
         return result;
     }
 

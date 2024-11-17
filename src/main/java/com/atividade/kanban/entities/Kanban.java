@@ -25,11 +25,12 @@ public class Kanban {
     @Enumerated(EnumType.STRING)
     private Status status = Status.A_FAZER;
 
-    private String prioridade;
+    @Enumerated(EnumType.STRING)
+    private Prioridade prioridade;
 
     public Kanban(){}
 
-    public Kanban(Long id, String titulo, String descricao, LocalDateTime dataCriacao, Status status, String prioridade) {
+    public Kanban(Long id, String titulo, String descricao, LocalDateTime dataCriacao, Status status, Prioridade prioridade) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
@@ -78,11 +79,11 @@ public class Kanban {
         this.status = status;
     }
 
-    public String getPrioridade() {
+    public Prioridade getPrioridade() {
         return prioridade;
     }
 
-    public void setPrioridade(String prioridade) {
+    public void setPrioridade(Prioridade prioridade) {
         this.prioridade = prioridade;
     }
 }

@@ -66,4 +66,9 @@ public class KanbanController {
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+    @GetMapping("/ordenar-prioridade")
+    public List<Kanban> ordenarPrioridade(){
+        return kanbanService.ordenarPrioridade();
+    }
 }
