@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -97,5 +98,9 @@ public class KanbanController {
         return kanbanService.listPrioridadeBaixa();
     }
 
-    // @GetMapping("/{dataLimite}")
+    @GetMapping("/data-limite/{dataLimite}")
+    public List<Kanban> listarPorDataLimite(@PathVariable String dataLimite) {
+        LocalDate dataFinal = LocalDate.parse(dataLimite);
+        return kanbanService.listarPorDataLimite(dataFinal);
+    }
 }

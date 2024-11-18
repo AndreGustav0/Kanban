@@ -7,6 +7,8 @@ import com.atividade.kanban.repositories.KanbanRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -121,5 +123,9 @@ public class KanbanService {
 
     public List<Kanban> listPrioridadeBaixa(){
         return kanbanRepositories.findByPrioridade(Prioridade.BAIXA);
+    }
+
+    public List<Kanban> listarPorDataLimite(LocalDate dataFinal){
+        return kanbanRepositories.findByDataLimite(dataFinal);
     }
 }
