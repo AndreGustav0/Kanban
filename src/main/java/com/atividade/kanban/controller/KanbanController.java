@@ -71,4 +71,16 @@ public class KanbanController {
     public List<Kanban> ordenarPrioridade(){
         return kanbanService.ordenarPrioridade();
     }
+
+    @GetMapping("/data-decrescente")
+    public List<Kanban> listarPorDataDecrescente() {
+        return kanbanService.listarPorDataDecrescente();
+    }
+
+    @GetMapping("/data-crescente")
+    public List<Kanban> listarPorDataCrescente(){
+        return kanbanService.listarPorDataCrescente();
+    }
+
+    // @GetMapping("/{dataLimite}")
 }

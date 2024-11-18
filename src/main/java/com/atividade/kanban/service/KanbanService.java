@@ -5,7 +5,6 @@ import com.atividade.kanban.entities.Prioridade;
 import com.atividade.kanban.entities.Status;
 import com.atividade.kanban.repositories.KanbanRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.reactive.context.StandardReactiveWebEnvironment;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -95,9 +94,20 @@ public class KanbanService {
             if (kanbanAtualizado.getPrioridade() != null) {
                 tarefa.setPrioridade(kanbanAtualizado.getPrioridade());
             }
+            if (kanbanAtualizado.getDataLimite() != null) {
+                tarefa.setDataLimite(kanbanAtualizado.getDataLimite());
+            }
 
             return Optional.of(kanbanRepositories.save(tarefa));
         }
         return Optional.empty();
+    }
+
+    public List<Kanban> listarPorDataDecrescente() {
+        return kanbanRepositories.findAllByOrderByDataLimiteDesc();
+    }
+
+    public List<Kanban> listarPorDataCrescente(){
+        return kanbanRepositories.findAllByOrderByDataLimiteAsc();
     }
 }

@@ -12,4 +12,8 @@ public interface KanbanRepositories extends JpaRepository<Kanban, Long> {
     List<Kanban> findByStatus(Status status);
 
     List<Kanban> findByPrioridade(Prioridade prioridade);
+
+    List<Kanban> findAllByOrderByDataLimiteAsc();
+
+    List<Kanban> findAllByOrderByDataLimiteDesc();
 }

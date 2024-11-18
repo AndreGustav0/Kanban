@@ -1,10 +1,8 @@
 package com.atividade.kanban.entities;
 
 import jakarta.persistence.*;
-import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
-
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name="tb_kanban")
@@ -20,7 +18,7 @@ public class Kanban {
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
-    private LocalDateTime dataCriacao;
+    private LocalDate dataCriacao;
 
     @Enumerated(EnumType.STRING)
     private Status status = Status.A_FAZER;
@@ -28,15 +26,18 @@ public class Kanban {
     @Enumerated(EnumType.STRING)
     private Prioridade prioridade;
 
+    private LocalDate dataLimite;
+
     public Kanban(){}
 
-    public Kanban(Long id, String titulo, String descricao, LocalDateTime dataCriacao, Status status, Prioridade prioridade) {
+    public Kanban(Long id, String titulo, String descricao, LocalDate dataCriacao, Status status, Prioridade prioridade, LocalDate dataLimite) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
         this.dataCriacao = dataCriacao;
         this.status = status;
         this.prioridade = prioridade;
+        this.dataLimite = dataLimite;
     }
 
     public Long getId() {
@@ -63,11 +64,11 @@ public class Kanban {
         this.descricao = descricao;
     }
 
-    public LocalDateTime getDataCriacao() {
+    public LocalDate getDataCriacao() {
         return dataCriacao;
     }
 
-    public void setDataCriacao(LocalDateTime dataCriacao) {
+    public void setDataCriacao(LocalDate dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
 
@@ -85,5 +86,13 @@ public class Kanban {
 
     public void setPrioridade(Prioridade prioridade) {
         this.prioridade = prioridade;
+    }
+
+    public LocalDate getDataLimite() {
+        return dataLimite;
+    }
+
+    public void setDataLimite(LocalDate dataLimite) {
+        this.dataLimite = dataLimite;
     }
 }
