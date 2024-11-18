@@ -110,4 +110,16 @@ public class KanbanService {
     public List<Kanban> listarPorDataCrescente(){
         return kanbanRepositories.findAllByOrderByDataLimiteAsc();
     }
+
+    public List<Kanban> listarPrioridadeAlta(){
+        return kanbanRepositories.findByPrioridade(Prioridade.ALTA);
+    }
+
+    public List<Kanban> listarPrioridadeMedia(){
+        return kanbanRepositories.findByPrioridade(Prioridade.MEDIA);
+    }
+
+    public List<Kanban> listPrioridadeBaixa(){
+        return kanbanRepositories.findByPrioridade(Prioridade.BAIXA);
+    }
 }

@@ -82,5 +82,20 @@ public class KanbanController {
         return kanbanService.listarPorDataCrescente();
     }
 
+    @GetMapping("/prioridade-alta")
+    public List<Kanban> listarPrioridadeAlta(){
+        return kanbanService.listarPrioridadeAlta();
+    }
+
+    @GetMapping("/prioridade-media")
+    public List<Kanban> listarPrioridadeMedia(){
+        return kanbanService.listarPrioridadeMedia();
+    }
+
+    @GetMapping("/prioridade-baixa")
+    public List<Kanban> listarPrioridadeBaixa(){
+        return kanbanService.listPrioridadeBaixa();
+    }
+
     // @GetMapping("/{dataLimite}")
 }
